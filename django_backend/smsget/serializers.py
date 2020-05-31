@@ -13,7 +13,8 @@ class PersonSerializer(serializers.ModelSerializer):
             'stat',
             'long',
             'lat',
-            'txt')
+            'txt',
+            'time')
                     
                     
         

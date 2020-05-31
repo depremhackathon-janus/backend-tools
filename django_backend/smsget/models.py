@@ -18,5 +18,6 @@ class PersonInfo(models.Model):
     long = models.FloatField(default=33.33)
     lat = models.FloatField(default=44.44)
     txt = models.CharField(max_length=255,default="")
+    time = models.DateTimeField()
     def __str__(self):
         return "person with number: "+str(self.num)
