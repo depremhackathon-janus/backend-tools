@@ -30,6 +30,7 @@ def sms():
         number = request.form['From']
         message_body = request.form['Body']
 
+        """
         print("[Twilio:sms]"," number: ",number)
         print("[Twilio:sms]"," message body: ",message_body)
 
@@ -52,19 +53,41 @@ def sms():
         
         print("[Twilio:sms]"," dump_json: ",dump_json)
 
-
-        body_json = json.loads(dump_json)
+        """
+        #body_json = json.loads(dump_json)
         #body_json = json.dumps(completebody2)
         
-        print("[Twilio:sms]"," message json: ",body_json)
+        print("[Twilio:sms]"," message json: ",message_body)
 
-        if "num" in body_json and "stat" in body_json and \
-            "long" in body_json and "lat" in body_json:
+        if "num" in message_body and "stat" in message_body and \
+            "long" in message_body and "lat" in message_body:
             print("[Twilio:sms]"," ENTERED PARSE: ")
             
-            num_matches = re.findall(r'"num"(.+?),',body_json)
+            
+            num_matches = re.findall(r'"num":(.+?),',message_body)
             if(len(num_matches)>0):
                 print("num: ",num_matches[0])
+                num = int(num_matches[0])
+            num_matches = re.findall(r'"stat":(.+?),',message_body)
+            if(len(num_matches)>0):
+                print("stat: ",num_matches[0])
+                stat = int(num_matches[0])
+            num_matches = re.findall(r'"long":(.+?),',message_body)
+            if(len(num_matches)>0):
+                print("long: ",num_matches[0])
+                long = float(num_matches[0])
+            num_matches = re.findall(r'"lat":(.+?),',message_body)
+            if(len(num_matches)>0):
+                print("lat: ",num_matches[0])
+                lat = float(num_matches[0])
+            num_matches = re.findall(r'"txt":"(.+?)"',message_body)
+            if(len(num_matches)>0):
+                print("txt: ",num_matches[0])
+                txt = str(num_matches[0])
+
+
+            new_person = PersonInfo(num=num,stat=stat,lat=lat,long=long,txt=txt)
+            new_person.save()
             #num = body_json['num']
             #stat = body_json['stat']
             #lat = body_json['lat']

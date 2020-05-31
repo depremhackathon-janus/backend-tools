@@ -122,7 +122,7 @@ try:
             level_2_num = int(float(row[4]))
             level_3_num = int(float(row[5]))
             level_4_num = int(float(row[6]))
-            safe_num = 20 - (level_1_num + level_2_num + level_3_num + level_4_num)
+            safe_num = 10 - (level_1_num + level_2_num + level_3_num + level_4_num)
             if safe_num < 1: safe_num = 1
 
             # add a safe entry for each row
