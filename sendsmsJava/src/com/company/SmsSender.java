@@ -20,7 +20,7 @@ public class SmsSender {
         PersonInfo personInfo = new PersonInfo(379125657);
         personInfo.longitude = 44.33f;
         personInfo.latitude = 33.44f;
-        personInfo.status =  PersonInfo.Status.Guvende.getValue();
+        personInfo.status =  PersonInfo.Status.Guvende.getValue() + PersonInfo.Status.BezIhtiyaci.getValue();
         JSONObject personJson = personInfo.toJson();
         String personStringJson = personJson.toString();
         String replaceString=personStringJson.replace('\"','\'');//replaces all occurrences of 'a' to 'e'
