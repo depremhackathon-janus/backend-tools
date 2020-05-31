@@ -29,33 +29,6 @@ def sms():
     if('From' in request.form):
         number = request.form['From']
         message_body = request.form['Body']
-
-        """
-        print("[Twilio:sms]"," number: ",number)
-        print("[Twilio:sms]"," message body: ",message_body)
-
-        completebody1 = "'s"+str(message_body)
-        print("[Twilio:sms]"," completebody1: ",completebody1)
-        
-        completebody2 = "{"+str(completebody1)
-
-        print("[Twilio:sms]"," completebody2: ",completebody2)
-        
-        completebody2 = str(completebody2) + "}}"
-        
-        print("[Twilio:sms]"," completebody2: ",completebody2)
-        
-        completebody3 = completebody2.replace("'",'"') 
-        
-        print("[Twilio:sms]"," completebody3: ",completebody3)
-        
-        dump_json = json.dumps(completebody3)
-        
-        print("[Twilio:sms]"," dump_json: ",dump_json)
-
-        """
-        #body_json = json.loads(dump_json)
-        #body_json = json.dumps(completebody2)
         
         print("[Twilio:sms]"," message json: ",message_body)
 
@@ -88,12 +61,6 @@ def sms():
 
             new_person = PersonInfo(num=num,stat=stat,lat=lat,long=long,txt=txt)
             new_person.save()
-            #num = body_json['num']
-            #stat = body_json['stat']
-            #lat = body_json['lat']
-            #long = body_json['long']
-            #read_person = PersonInfo(num=num,stat=stat,lat=lat,long=long)
-            #read_person.save()
 
     """Respond to incoming messages with a friendly SMS."""
     # Start our response
