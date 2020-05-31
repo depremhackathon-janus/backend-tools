@@ -85,7 +85,7 @@ class StatusMap():
 db = []
 
 
-id_additon_unique = 10000
+id_additon_unique = 100000
 
 def add_to_DB(num,stat,long,lat,txt,time):
     global id_additon_unique,db
@@ -122,42 +122,42 @@ try:
             level_2_num = int(float(row[4]))
             level_3_num = int(float(row[5]))
             level_4_num = int(float(row[6]))
-            safe_num = 200 - (level_1_num + level_2_num + level_3_num + level_4_num)
+            safe_num = 20 - (level_1_num + level_2_num + level_3_num + level_4_num)
             if safe_num < 1: safe_num = 1
 
             # add a safe entry for each row
             for i in range(safe_num):
                 entry_lat,entry_long = get_random_lat_long(lat,long)
                 status = StatusMap.Guvende
-                time = datetime.datetime(2020, 05, 31, 18, 22, 30, 342380)
+                time = datetime.datetime(2020, 5, 31, 18, 22, 30, 342380)
                 time += datetime.timedelta(seconds=int(np.random.normal(0.0, TM_SIGMA, 1)[0]))
                 add_to_DB(num,status,entry_long,entry_lat,txt="",time=time)
 
             for i in range(level_1_num):
                 entry_lat,entry_long = get_random_lat_long(lat,long)
                 status = StatusMap.ZorDurumda
-                time = datetime.datetime(2020, 05, 31, 18, 22, 30, 342380)
+                time = datetime.datetime(2020, 5, 31, 18, 22, 30, 342380)
                 time += datetime.timedelta(seconds=int(np.random.normal(0.0, TM_SIGMA, 1)[0]))
                 add_to_DB(num,status,entry_long,entry_lat,txt="",time=time)
 
             for i in range(level_2_num):
                 entry_lat,entry_long = get_random_lat_long(lat,long)
                 status = StatusMap.ZorDurumda
-                time = datetime.datetime(2020, 05, 31, 18, 22, 30, 342380)
+                time = datetime.datetime(2020, 5, 31, 18, 22, 30, 342380)
                 time += datetime.timedelta(seconds=int(np.random.normal(0.0, TM_SIGMA, 1)[0]))
                 add_to_DB(num,status,entry_long,entry_lat,txt="",time=time)
 
             for i in range(level_3_num):
                 entry_lat,entry_long = get_random_lat_long(lat,long)
                 status = StatusMap.KomsumdanSesGeliyor
-                time = datetime.datetime(2020, 05, 31, 18, 22, 30, 342380)
+                time = datetime.datetime(2020, 5, 31, 18, 22, 30, 342380)
                 time += datetime.timedelta(seconds=int(np.random.normal(0.0, TM_SIGMA, 1)[0]))
                 add_to_DB(num,status,entry_long,entry_lat,txt="",time=time)
             
             for i in range(level_4_num):
                 entry_lat,entry_long = get_random_lat_long(lat,long)
                 status = StatusMap.EnkazAltindayim
-                time = datetime.datetime(2020, 05, 31, 18, 22, 30, 342380)
+                time = datetime.datetime(2020, 5, 31, 18, 22, 30, 342380)
                 time += datetime.timedelta(seconds=int(np.random.normal(0.0, TM_SIGMA, 1)[0]))
                 add_to_DB(num,status,entry_long,entry_lat,txt="",time=time)
               
@@ -183,14 +183,16 @@ test_person = PersonInfo(num=537956,stat=32,lat=40.99511,long=29.099894,txt="dud
 test_person.save()
 """
 
-from django.db import transaction
+new_persons = []
+for entry in db:
+    num = entry["num"]
+    stat = entry["stat"]
+    lat = entry["lat"]
+    long = entry["long"]
+    txt = entry["txt"]
+    time_val = entry["time"]
+    new_person = PersonInfo(num=num,stat=stat,lat=lat,long=long,txt=txt,time=time_val)
+    new_persons.append(new_person)
 
-with transaction.commit_on_success():
-    for entry in db:
-        num = entry["num"]
-        stat = entry["stat"]
-        lat = entry["lat"]
-        long = entry["long"]
-        txt = entry["txt"]
-        new_person = PersonInfo(num=num,stat=stat,lat=lat,long=long,txt=txt)
-        new_person.save()
+print("start db")
+PersonInfo.objects.bulk_create(new_persons)

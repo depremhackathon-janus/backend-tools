@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.timezone import now
 # Create your models here.
 
 class StatusMap():
@@ -18,6 +18,6 @@ class PersonInfo(models.Model):
     long = models.FloatField(default=33.33)
     lat = models.FloatField(default=44.44)
     txt = models.CharField(max_length=255,default="")
-    time = models.DateTimeField()
+    time = models.DateTimeField(default=now, blank=True)
     def __str__(self):
         return "person with number: "+str(self.num)
