@@ -3,12 +3,12 @@ import org.json.simple.JSONObject;
 public class PersonInfo {
     public enum Status{
         Guvende(1),
-        ZorDurumda(10),
-        GidaIhtiyaci(100),
-        BezIhtiyaci(1000),
-        CadirIhtiyaci(10000),
-        EnkazAltindayim(100000),
-        KomsumdanSesGeliyor(100000);
+        ZorDurumda(2),
+        GidaIhtiyaci(4),
+        BezIhtiyaci(8),
+        CadirIhtiyaci(16),
+        EnkazAltindayim(32),
+        KomsumdanSesGeliyor(64);
 
         private final int value;
         Status(int i) {
