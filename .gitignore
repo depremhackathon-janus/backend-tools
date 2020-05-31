@@ -1,0 +1,6 @@
+*.pyc
+*.class
+*migrations*
+*.idea
+*.vscode
+*.sqlite3
